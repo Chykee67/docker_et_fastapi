@@ -10,4 +10,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
       - name: build_image
-        run: docker build -t fastapi .
+        run: docker build -t chykee67/fastapi:latest .
+      - name: push_image_to_dockerhub
+        run: |
+        docker login -u chykee67 -p ${{ secrets.DOCKER_ET_FASTAPI }}
+        docker push chykee67/fastapi:latest
+        
