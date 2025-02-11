@@ -15,3 +15,8 @@ jobs:
         run: |
           docker login -u chykee67 -p ${{ secrets.DOCKER_ET_FASTAPI }}
           docker push chykee67/fastapi:latest
+      - name: Deploy
+        env:
+          deploy_url: ${{secrets.RENDER_DEPLOY_HOOK_URL}}
+        run: |
+          curl "$deploy_url"
