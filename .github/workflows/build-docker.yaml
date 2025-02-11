@@ -9,7 +9,3 @@ job:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: build
-        run: docker build . -t chykee67/docker_fastapi:latest
-      - name: push_image_to_dockerhub
-        run: docker push chykee67/docker_fastapi:latest
