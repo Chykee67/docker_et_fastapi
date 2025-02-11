@@ -1,9 +1,9 @@
 name: fastapi_docker_build
 
 on:
-  [workflow_dispatch]
+  push
 
-job:
+jobs:
   publish_images:
     runs-on: ubuntu-latest
     steps:
