@@ -13,6 +13,5 @@ jobs:
         run: docker build -t chykee67/fastapi:latest .
       - name: push_image_to_dockerhub
         run: |
-        docker login -u chykee67 -p ${{ secrets.DOCKER_ET_FASTAPI }}
-        docker push chykee67/fastapi:latest
-        
+          docker login -u chykee67 -p ${{ secrets.DOCKER_ET_FASTAPI }}
+          docker push chykee67/fastapi:latest
