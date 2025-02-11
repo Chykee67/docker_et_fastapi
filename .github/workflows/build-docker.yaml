@@ -34,3 +34,32 @@ jobs:
           push: true
           tags: chykee67/fastapiwithnginx:latest
           labels: ${{steps.meta.outputs.labels}}
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{github.ref == 'refs/heads/main'}}
+    needs: [build_and_push]
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      
+      - name: copy files via ssh to ec2 instance
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.AWS_EC2_USERNAME}}
+          key: ${{secrets.KEY}}
+          source: "compose.yml, nginx/nginx.conf"
+          target: .
+
+      - name: run docker compose on ec2 instance
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.AWS_EC2_USERNAME}}
+          key: ${{secrets.KEY}}
+          script: |
+            docker compose down
+            docker rmi -f $(docker images -q)
+            docker compose pull
+            docker compose up -d
