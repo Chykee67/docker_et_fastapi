@@ -16,7 +16,7 @@ jobs:
           pip install -r requirements.txt
           pytest
 
-  publish_images:
+  Deploy:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
