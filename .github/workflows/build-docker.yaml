@@ -5,6 +5,17 @@ on:
     branches: [main]
 
 jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Test
+        run: |
+          pip install -r requirements.txt
+          pytest
+
   publish_images:
     runs-on: ubuntu-latest
     steps:
@@ -13,11 +24,6 @@ jobs:
 
       - name: build_image
         run: docker build -t chykee67/fastapi:latest .
-
-      - name: Test
-        run: |
-          pip install pytest
-          pytest
 
       - name: push_image_to_dockerhub
         run: |
