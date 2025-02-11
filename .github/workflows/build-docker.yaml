@@ -56,7 +56,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{secrets.HOST}}
-          username: ${{secrets.AWS_EC2_USERNAME}}
+          username: ${{secrets.USERNAME}}
           key: ${{secrets.KEY}}
           script: |
             docker compose down
