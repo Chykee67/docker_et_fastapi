@@ -28,4 +28,4 @@ jobs:
         with:
           push: true
           tags: chykee67/fastapiwithnginx:latest
-          labels: ${{steps.meta.outputs.labels}
+          labels: ${{steps.meta.outputs.labels}}
