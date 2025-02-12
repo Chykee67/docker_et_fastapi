@@ -1,13 +1,24 @@
-name: Build and Push
+name: Test, Build, Push and Deploy
 
 on:
   push:
     branches: [main]
 
 jobs:
+  Test:
+    name: test api functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: install requirements for testing
+        run: pip install -r requirements.txt
+
+      - name: test the functions
+        run: pytest
+
   build_and_push:
     name: push docker image to docker hub
     runs-on: ubuntu-latest
+    needs: [Test]
     steps:
       - name: login to docker hub
         uses: docker/login-action@v3
