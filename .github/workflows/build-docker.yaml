@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  Test:
+  test:
     name: test api functions
     runs-on: ubuntu-latest
     steps:
@@ -44,7 +44,12 @@ jobs:
           tags: chykee67/fastapiwithnginx:latest
           labels: ${{steps.meta.outputs.labels}}
 
-      - name: run docker-compose
+  deploy:
+    name: deploy app changes to server
+    runs-on: ubuntu-latest
+    needs: [build_and_push]
+    steps:
+      - name: run docker-compose on server
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{secrets.HOST}}
